@@ -118,25 +118,15 @@
         window.addEventListener("resize", resizeCanvas);
         resizeCanvas();
 
-        function getCanvasCoordinates(event) {
-            const rect = canvas.getBoundingClientRect();
-            return {
-                x: event.clientX - rect.left,
-                y: event.clientY - rect.top
-            };
-        }
-
         function startDrawing(event) {
             isDrawing = true;
-            const { x, y } = getCanvasCoordinates(event);
             ctx.beginPath();
-            ctx.moveTo(x, y);
+            ctx.moveTo(event.offsetX, event.offsetY);
         }
 
         function draw(event) {
             if (!isDrawing) return;
-            const { x, y } = getCanvasCoordinates(event);
-            ctx.lineTo(x, y);
+            ctx.lineTo(event.offsetX, event.offsetY);
             ctx.strokeStyle = "black";
             ctx.lineWidth = 2;
             ctx.lineCap = "round";
@@ -148,42 +138,10 @@
             ctx.closePath();
         }
 
-        // Mouse Events
         canvas.addEventListener("mousedown", startDrawing);
         canvas.addEventListener("mousemove", draw);
         canvas.addEventListener("mouseup", stopDrawing);
         canvas.addEventListener("mouseout", stopDrawing);
-
-        // Touch Events (Fixes Offset Issue)
-        function getTouchCoordinates(event) {
-            const touch = event.touches[0];
-            const rect = canvas.getBoundingClientRect();
-            return {
-                x: touch.clientX - rect.left,
-                y: touch.clientY - rect.top
-            };
-        }
-
-        canvas.addEventListener("touchstart", (event) => {
-            event.preventDefault();
-            isDrawing = true;
-            const { x, y } = getTouchCoordinates(event);
-            ctx.beginPath();
-            ctx.moveTo(x, y);
-        });
-
-        canvas.addEventListener("touchmove", (event) => {
-            event.preventDefault();
-            if (!isDrawing) return;
-            const { x, y } = getTouchCoordinates(event);
-            ctx.lineTo(x, y);
-            ctx.stroke();
-        });
-
-        canvas.addEventListener("touchend", () => {
-            isDrawing = false;
-            ctx.closePath();
-        });
 
         document.getElementById("clear").addEventListener("click", () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -209,7 +167,9 @@
             confirmationMessage.innerText = confirmationText;
             confirmationMessage.style.display = "block";
 
-            if (!confirm(`Are you sure you want to submit this?\n\n${confirmationText}`)) {
+            // Pop-up confirmation before sending email
+            const userConfirmed = confirm(`CONFIRM SUBMISSION:\n\n${confirmationText}\n\nClick OK to proceed or Cancel to abort.`);
+            if (!userConfirmed) {
                 return; // User canceled submission
             }
 
