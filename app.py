@@ -9,7 +9,7 @@ app = Flask(__name__)
 CORS(app)
 
 SENDER_EMAIL = os.getenv("SENDER_EMAIL", "cypdigitalsignatures@gmail.com")
-SENDER_PASSWORD = os.getenv("SENDER_PASSWORD", "your-secure-password")
+SENDER_PASSWORD = os.getenv("SENDER_PASSWORD", "qllxxvtkwmzkzzxv")
 RECEIVER_EMAIL = os.getenv("RECEIVER_EMAIL", "cypdigitalsignatures@gmail.com")
 
 # Manually define CC emails (Add more emails here if needed)
