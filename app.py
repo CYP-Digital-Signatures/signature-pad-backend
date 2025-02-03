@@ -14,7 +14,7 @@ SENDER_PASSWORD = os.getenv("SENDER_PASSWORD")  # Securely fetch from Render
 RECEIVER_EMAIL = "cypdigitalsignatures@gmail.com"
 
 # Manually defined CC emails (modify as needed)
-CC_EMAILS = ["david.memish@metrotunnelcyp-dc.com.au", "cypdigitalsignatures@gmail.com"]
+CC_EMAILS = ["david.memish@metrotunnelcyp-dc.com.au", "darcybaranowski@metrotunnelcyp-dc.com.au", "cypdigitalsignatures@gmail.com"]
 
 # ✅ Root route to confirm backend is running
 @app.route("/", methods=["GET"])
