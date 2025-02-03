@@ -1,12 +1,14 @@
-import os
 from flask import Flask, request, jsonify
 import smtplib
 import base64
+import os
 from email.message import EmailMessage
+from flask_cors import CORS  # Import CORS
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
-# Load credentials from environment variables
+# Email sender configuration (using environment variables)
 SENDER_EMAIL = os.getenv("SENDER_EMAIL", "cypdigitalsignatures@gmail.com")
 SENDER_PASSWORD = os.getenv("SENDER_PASSWORD", "CYPpassword")
 RECEIVER_EMAIL = os.getenv("RECEIVER_EMAIL", "cypdigitalsignatures@gmail.com")
