@@ -203,6 +203,11 @@
             }
 
             const confirmationText = `I confirm that all works have been completed on ${shaft} ${level} ${area} by ${subcontractor} and any subsequent permit zone works that require LV spotters will be back-charged to ${subcontractor}.`;
+
+            if (!confirm(`Are you sure you want to submit this?\n\n${confirmationText}`)) {
+                return; // User canceled submission
+            }
+
             confirmationMessage.innerText = confirmationText;
             confirmationMessage.style.display = "block";
 
