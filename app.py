@@ -10,7 +10,7 @@ CORS(app)  # Enable CORS for all routes
 
 # Email sender configuration (using environment variables)
 SENDER_EMAIL = os.getenv("SENDER_EMAIL", "cypdigitalsignatures@gmail.com")
-SENDER_PASSWORD = os.getenv("SENDER_PASSWORD", "CYPpassword")
+SENDER_PASSWORD = os.getenv("SENDER_PASSWORD", "fxungeuglwetspjo")
 RECEIVER_EMAIL = os.getenv("RECEIVER_EMAIL", "cypdigitalsignatures@gmail.com")
 
 @app.route("/send-email", methods=["POST"])
