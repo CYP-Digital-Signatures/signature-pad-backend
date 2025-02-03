@@ -13,7 +13,7 @@ SENDER_PASSWORD = os.getenv("SENDER_PASSWORD")  # Retrieve only password from Re
 RECEIVER_EMAIL = os.getenv("RECEIVER_EMAIL", "cypdigitalsignatures@gmail.com")
 
 # Manually define CC emails (Add more emails here if needed)
-CC_EMAILS = ["david.memish@metrotunnelcyp-dc.com.au", "admin@example.com"]
+CC_EMAILS = ["david.memish@metrotunnelcyp-dc.com.au", "cypdigitalsignatures@gmail.com"]
 
 @app.route("/send-email", methods=["POST"])
 def send_email():
