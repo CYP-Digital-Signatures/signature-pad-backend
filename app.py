@@ -1,23 +1,15 @@
+import os
 from flask import Flask, request, jsonify
 import smtplib
 import base64
-import os
 from email.message import EmailMessage
 
 app = Flask(__name__)
 
-# Email sender configuration (use an App Password for security)
-SENDER_EMAIL = "your-email@gmail.com"
-SENDER_PASSWORD = "your-app-password"
-RECEIVER_EMAIL = "recipient@example.com"  # Change this to the receiver's email
-
-UPLOAD_FOLDER = "uploads"
-if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
-
-@app.route("/", methods=["GET"])
-def home():
-    return "Signature API is running!", 200
+# Load credentials from environment variables
+SENDER_EMAIL = os.getenv("SENDER_EMAIL", "cypdigitalsignatures@gmail.com")
+SENDER_PASSWORD = os.getenv("SENDER_PASSWORD", "CYPpassword")
+RECEIVER_EMAIL = os.getenv("RECEIVER_EMAIL", "cypdigitalsignatures@gmail.com")
 
 @app.route("/send-email", methods=["POST"])
 def send_email():
@@ -34,11 +26,6 @@ def send_email():
     # Convert Base64 signature data to an actual image file
     signature_data = signature_data.replace("data:image/png;base64,", "")
     signature_bytes = base64.b64decode(signature_data)
-
-    # Save locally (to be pushed to GitHub later)
-    signature_filename = f"{UPLOAD_FOLDER}/signature_{name}.png"
-    with open(signature_filename, "wb") as f:
-        f.write(signature_bytes)
 
     # Create email content
     msg = EmailMessage()
