@@ -92,12 +92,13 @@
             <option value="FOH">FOH</option>
         </select>
 
+        <!-- Confirmation Message (Moved Above Signature Pad) -->
+        <p id="confirmation-message"></p>
+
         <h3>Sign Below:</h3>
         <canvas id="signature-pad"></canvas>
         <button id="clear">Clear</button>
         <button id="save">Send Signature</button>
-
-        <p id="confirmation-message"></p>
     </div>
 
     <script>
@@ -188,6 +189,7 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = "white";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
+            confirmationMessage.style.display = "none"; // Hide confirmation message when clearing
         });
 
         document.getElementById("save").addEventListener("click", async () => {
@@ -204,12 +206,12 @@
 
             const confirmationText = `I confirm that all works have been completed on ${shaft} ${level} ${area} by ${subcontractor} and any subsequent permit zone works that require LV spotters will be back-charged to ${subcontractor}.`;
 
+            confirmationMessage.innerText = confirmationText;
+            confirmationMessage.style.display = "block";
+
             if (!confirm(`Are you sure you want to submit this?\n\n${confirmationText}`)) {
                 return; // User canceled submission
             }
-
-            confirmationMessage.innerText = confirmationText;
-            confirmationMessage.style.display = "block";
 
             const signatureDataURL = canvas.toDataURL("image/png");
 
