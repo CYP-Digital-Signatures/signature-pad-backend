@@ -9,11 +9,11 @@ app = Flask(__name__)
 CORS(app)
 
 SENDER_EMAIL = os.getenv("SENDER_EMAIL", "cypdigitalsignatures@gmail.com")
-SENDER_PASSWORD = os.getenv("SENDER_PASSWORD", "qllxxvtkwmzkzzxv")
+SENDER_PASSWORD = os.getenv("SENDER_PASSWORD")  # Retrieve only password from Render
 RECEIVER_EMAIL = os.getenv("RECEIVER_EMAIL", "cypdigitalsignatures@gmail.com")
 
 # Manually define CC emails (Add more emails here if needed)
-CC_EMAILS = ["manager@example.com", "admin@example.com"]
+CC_EMAILS = ["david.memish@metrotunnelcyp-dc.com.au", "admin@example.com"]
 
 @app.route("/send-email", methods=["POST"])
 def send_email():
